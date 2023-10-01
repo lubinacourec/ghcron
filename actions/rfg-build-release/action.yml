@@ -1,0 +1,21 @@
+name: Release tagged build
+description: 'Release tagged build on another repo (RetroFuturaGradle)'
+inputs:
+  repo:
+    description: 'Github repo to use'
+    required: true
+  GITHUB_TOKEN:
+    description: 'set to the value of a secret containing a token with read/write permissions for the repo'
+    required: true
+  use_absver:
+    description: 'set this to any value to use absolute versioning in filenames/release info'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - $[{ inputs.repo }]
+    - $[{ inputs.use_absver }]
+  env:
+    GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
