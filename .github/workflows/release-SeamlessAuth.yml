@@ -1,0 +1,16 @@
+name: Build and release SeamlessAuth
+on:
+  workflow_dispatch:
+
+jobs:
+  buildrelease:
+    runs-on: ubuntu-latest
+    name: buildrelease
+    steps:
+      - name: buildrelease
+        id: buildrelease
+        uses: lubinacourec/ghcron/actions/rfg-build-release@master
+        with:
+          repo: 'lubinacourec/SeamlessAuth'
+          use_absver: true
+          GITHUB_TOKEN: ${{ secrets.SEAMLESSAUTH_GITHUB_TOKEN }}
