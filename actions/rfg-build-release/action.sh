@@ -14,10 +14,14 @@ fi
 git clone "https://github.com/${GHREPO}.git" . || exit 1
 git config --global --add safe.directory /github/workspace
 
+#get last commit hash and add tag with it for RFG bullshit
+COMMITHASH=$(git rev-parse --short HEAD)
+git tag $COMMITHASH
+
 # handle absolute version
 if [ "$absver" = "1" ]; then
   # calc absolute version, zero pad to 5 digits. RELEASE_VERSION has to be set for RFG.
-  RELEASE_VERSION='c'$(printf "%05d" $(git rev-list --count HEAD))
+  RELEASE_VERSION=$(printf "%05d" $(git rev-list --count HEAD))
 #  VERSION="$RELEASE_VERSION" # i think this overrides the version in RFG. at least, it seems to.
   TAG_PRETTY=$(git rev-list --count HEAD)
   echo "using absolute release version #$RELEASE_VERSION"
@@ -42,7 +46,7 @@ echo ""
 
 #rename jars with absolute version number
 if [ "$absver" = "1" ]; then
-  prename 's/^(.*?)-/$1-'"$RELEASE_VERSION"'-/' ./builds/libs/*
+  prename 's/^(.*?)-/$1-'"$RELEASE_VERSION"'-/' ./build/libs/*
 fi
 
 #get name for release (uses shortest jar filename)
@@ -50,4 +54,4 @@ RELEASENAME=$(find ./build/libs -type f -name "*.jar" | awk '{print length, $0}'
 echo "release = $RELEASENAME"
 
 #create github release with artifacts
-gh release create "$TAG_PRETTY" ./build/libs/*.jar --generate-notes --title "$RELEASENAME"
+gh release create "${TAG_PRETTY}_${COMMITHASH}" ./build/libs/*.jar --generate-notes --title "$RELEASENAME"
