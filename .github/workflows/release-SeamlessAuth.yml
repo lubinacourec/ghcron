@@ -11,6 +11,6 @@ jobs:
         id: buildrelease
         uses: lubinacourec/ghcron/actions/rfg-build-release@master
         with:
-          repo: 'lubinacourec/SeamlessAuth'
+          gh_repo: 'lubinacourec/SeamlessAuth'
           use_absver: true
           GITHUB_TOKEN: ${{ secrets.SEAMLESSAUTH_GITHUB_TOKEN }}
