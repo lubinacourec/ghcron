@@ -42,7 +42,7 @@ echo ""
 
 #rename jars with absolute version number
 if [ "$absver" = "1" ]; then
-  prename 's/^(.*?)-/$1-'"$RELEASE_VERSION"'-/' *
+  prename 's/^(.*?)-/$1-'"$RELEASE_VERSION"'-/' ./builds/libs/*
 fi
 
 #get name for release (uses shortest jar filename)
