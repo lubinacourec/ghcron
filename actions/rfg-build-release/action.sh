@@ -36,6 +36,7 @@ timeout 120 ./gradlew --build-cache --info --stacktrace runServer 2>&1 < run/sto
 #check server log for errors
 #this is very secure go away
 curl -fsSL https://raw.githubusercontent.com/GTNewHorizons/GTNH-Actions-Workflows/master/scripts/test_no_error_reports | bash
+echo ""
 
 #get name for release (uses shortest jar filename)
 RELEASENAME=$(find ./build/libs -type f -name "*.jar" | awk '{print length, $0}' | sort -n | head -n 1 | cut -d " " -f 2- | sed 's/\.jar$// | xargs -I{} basename {}')
