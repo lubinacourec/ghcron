@@ -36,7 +36,7 @@ timeout 120 ./gradlew --build-cache --info --stacktrace runServer 2>&1 < run/sto
 curl -fsSL https://raw.githubusercontent.com/GTNewHorizons/GTNH-Actions-Workflows/master/scripts/test_no_error_reports | bash
 
 #get name for release (uses shortest jar filename)
-RELEASENAME=$(find build/libs -type f -name "*.jar" | awk '{print length, $0}' | sort -n | head -n 1 | cut -d " " -f 2- | sed 's/\.jar$//)
+RELEASENAME=$(find build/libs -type f -name "*.jar" | awk '{print length, $0}' | sort -n | head -n 1 | cut -d " " -f 2- | sed 's/\.jar$//')
 
 #create github release with artifacts
 gh api --method POST -H "Accept: application/vnd.github+json" \
