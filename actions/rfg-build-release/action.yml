@@ -16,5 +16,5 @@ runs:
   image: 'Dockerfile'
   env:
     GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
-    ENABLEABSVER: $[{ inputs.use_absver }]
-    GHREPO: $[{ inputs.gh_repo }]
+    ENABLEABSVER: ${{ inputs.use_absver }}
+    GHREPO: ${{ inputs.gh_repo }}
