@@ -1,6 +1,4 @@
 #! /bin/sh -l
-
-GHREPO="${1}"
 absver=0
 
 if [ -z "${GHREPO}" ]; then
@@ -8,12 +6,12 @@ if [ -z "${GHREPO}" ]; then
   exit 1
 fi
 
-if [ ! -z "${2}" ]; then
+if [ ! -z "${ENABLEABSVER}" ] && [ "${ENABLEABSVER}" != "false" ]; then
   echo "Enabling absolute versioning"
   absver=1
 fi
 
-git clone "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GHREPO}.git" . || exit 1
+git clone "https://github.com/${GHREPO}.git" . || exit 1
 
 # handle absolute version
 if [ "$absver" = "1" ]; then
@@ -46,5 +44,5 @@ gh api --method POST -H "Accept: application/vnd.github+json" \
             -f tag_name="${RELEASENAME}" \
             --jq ".body" > tmp_changelog.md
 cat tmp_changelog.md
-gh release create "${RELEASENAME" -F tmp_changelog.md ./build/libs/*.jar
+gh release create "${RELEASENAME}" -F tmp_changelog.md ./build/libs/*.jar
 

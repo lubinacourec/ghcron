@@ -16,6 +16,6 @@ runs:
   image: 'Dockerfile'
   args:
     - $[{ inputs.repo }]
-    - $[{ inputs.use_absver }]
   env:
     GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    ENABLEABSVER: $[{ inputs.use_absver }]
